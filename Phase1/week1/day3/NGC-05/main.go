@@ -55,6 +55,22 @@ func (h Hero) CountDamage() int {
 	return totalDmg
 }
 
+func (h *Hero)isAttackedBy(attack Hero) {
+	totalDamage := attack.CountDamage() - h.defence
+
+	if totalDamage > 0 {
+		h.healthPoint -= totalDamage
+	}
+}
+
+func Battle(attack Hero, attacked Hero)  {
+	attacked.isAttackedBy(attack)
+
+	// fmt.Printf("Attack Total Dmg: %d\n", attack.CountDamage())
+	// fmt.Printf("attacked defend : %d\n", attacked.defence)
+	fmt.Printf("%s HP: %d\n", attacked.name, attacked.healthPoint)
+}
+
 func main() {
 
 	// NG Challenge 5 : Struct & Method 1
@@ -88,5 +104,15 @@ func main() {
 	}
 
 	fmt.Printf("%d", hero.CountDamage())
+
+	// NG Challenge 5 : struct HERO 2
+	heroA := Hero {
+		"Fendi", 70, 25, 35, 250, Weapon{50},
+	}
+	heroB := Hero {
+		"Rudi", 40, 20, 15, 250, Weapon{30},
+	}
+
+	Battle(heroA, heroB)
 
 }
