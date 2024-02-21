@@ -89,7 +89,5 @@ func main() {
 	//soal 3
 	nilaiSiswa := []int{85, 60, 78, 92, 45, 73}
 	evaluasiKinerjaSiswa(nilaiSiswa)
-
-	//soal 4
 	
 }
