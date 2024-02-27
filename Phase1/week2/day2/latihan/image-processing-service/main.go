@@ -6,8 +6,9 @@ import (
 )
 
 func processImage(url string) {
+	time.Sleep(1 * time.Second)
 	fmt.Printf("Processing image: https: %s\n", url)
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 	fmt.Printf("Image Processing completed: https: %s\n", url)
 }
 
@@ -25,7 +26,7 @@ func main() {
 
 	fmt.Println("Image processing start main application continues...")
 
-	time.Sleep(4 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	fmt.Println("All image processing completed.")
 }
