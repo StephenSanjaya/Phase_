@@ -1,0 +1,95 @@
+//package main
+
+
+
+
+//import "fmt"
+//
+////type PaymentInfo struct {
+////	StatusSettlement bool
+////	Code             int
+////}
+////type PaymentMethod interface {
+////	Pay(int, string) bool
+////	GetStatusInfo() PaymentInfo
+////}
+////
+////type CreditCard struct{}
+////
+////func (cc CreditCard) Pay(int, string) bool {
+////	return true
+////}
+////
+////type VirtualAccount struct{}
+////
+////func (va VirtualAccount) Pay(int, string) bool {
+////	return true
+////}
+////
+////func ProcessPayment(pm PaymentMethod) {
+////	// process logic
+////}
+//
+//type Shape interface {
+//	area() float64
+//	perimeter() float64
+//}
+//
+//type Circle struct {
+//}
+//
+//func (c Circle) area() float64 {
+//	return float64(2.0)
+//}
+//
+//func (c Circle) perimeter() float64 {
+//	return float64(1.0)
+//}
+//
+//func (c Circle) volume() float64 {
+//	return float64(1.0)
+//}
+//
+//type Rectangle struct {
+//}
+//
+//func (r Rectangle) area() float64 {
+//	return float64(4.0)
+//}
+//
+//func (r Rectangle) perimeter() float64 {
+//	return float64(2.0)
+//}
+//
+//func DisplayInformation(s Shape) {
+//	fmt.Println("luas area dari bidang 2D ini adalah ", s.area())
+//	fmt.Println("keliling area dari bidang 2D ini adalah ", s.perimeter())
+//}
+//func main() {
+//
+//	rm := map[string]interface{}{
+//		"Nama":   "Tugas Meilyanto",
+//		"Status": true,
+//		"Age":    17,
+//	}
+//
+//	fmt.Println(rm)
+//	//var randomValue interface{}
+//	//
+//	//randomValue = "10"
+//	//
+//	//val, check := randomValue.(int)
+//	//
+//	//if check {
+//	//	fmt.Println("ini isi value nya", val)
+//	//}
+//
+//	//fmt.Println(randomValue.(string) + randomValue2.(string))
+//
+//	//var newCircle Shape = Circle{}
+//	//newCircle.(Circle).volume()
+//	//
+//	//var newRectangle Shape = Rectangle{}
+//	//DisplayInformation(newCircle)
+//	//DisplayInformation(newRectangle)
+//}
