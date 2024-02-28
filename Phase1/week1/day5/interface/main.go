@@ -23,29 +23,6 @@ type Student[T Number] struct {
 	Score []T
 }
 
-func takeOrders(orders []order) {
-	orderName := ""
-	qty := 0
-	for {
-		fmt.Println("What would you like to order? (Type 'done' to finish)")
-		_, err := fmt.Scanf("%s\n", &orderName)
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		if orderName == "done" {
-			break
-		}
-
-		fmt.Printf("How many %s would you like?\n", orderName)
-		_, err = fmt.Scanf("%d\n", &qty)
-		if err != nil {
-			fmt.Println(err)
-		}
-		o.name = append(o.name, orderName)
-	}
-}
-
 func (s *Student[T]) AppendScore(newScore T) {
 	s.Score = append(s.Score, newScore)
 }
