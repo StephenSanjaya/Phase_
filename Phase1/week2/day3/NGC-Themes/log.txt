@@ -1,0 +1,8 @@
+2023-07-25 10:30:22 [INFO] This is an informational message.
+2023-07-25 10:30:22 [INFO] This is an informational message.
+2023-07-25 10:30:22 [INFO] This is an informational message.
+2023-07-25 10:31:15 [ERROR] And error occured while processing the request.
+2023-07-25 10:32:05 [DEBUG] Processing request with ID: 12345
+2023-07-25 10:32:05 [DEBUG] Processing request with ID: 12345
+2023-07-25 10:32:05 [DEBUG] Processing request with ID: 12345
+2023-07-25 10:32:05 [DEBUG] Processing request with ID: 12345
