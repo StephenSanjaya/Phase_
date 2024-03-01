@@ -1,0 +1,5 @@
+saya tidak membuat table company, karena table tersebut sudah pasti hanya berisi 1 data.
+
+pada table Department, bisa mempunyai banyak employee, tapi Employee hanya bisa memiliki 1 Department
+
+pada table Project, bisa dikerjakan oleh beberapa Employee, dan juga sebaliknya, maka dari itu saya membuat junction table (Employees_Projects)
