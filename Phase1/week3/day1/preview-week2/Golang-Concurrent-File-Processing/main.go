@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	// "strings"
+	"time"
 )
 
 func analyzeCsvFile(inputCSV string, outputCSV string) (error) {
@@ -37,15 +37,19 @@ func analyzeCsvFile(inputCSV string, outputCSV string) (error) {
 		newRow2 = append(newRow2, newRow)
 		newRow = nil
 	}
-	for i, v := range newRow2 {
-		if i > 0 {
-			v[0] = strings.ToUpper(v[0])
-			v[2] = "mr." + v[2]
+	go func (newRow2 [][]string)  {
+		fmt.Println(newRow2)
+		for i, v := range newRow2 {
+			if i > 0 {
+				v[0] = strings.ToUpper(v[0])
+				v[2] = "mr." + v[2]
+			}
+			if err := write.Write(v); err != nil {
+				return 
+			}
 		}
-		if err := write.Write(v); err != nil {
-			return err
-		}
-	}
+	}(newRow2)
+	time.Sleep(10 * time.Second)
 
 	return nil
 }
