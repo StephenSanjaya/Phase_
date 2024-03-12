@@ -1,10 +1,35 @@
 -- 1NF
 CREATE TABLE Bookstores (){
-    order_id INT PRIMARY KEY
-    ....
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_name VARCHAR(100),
+    customer_email VARCHAR(100),
+    book_title VARCHAR(100),
+    book_type VARCHAR(100),
+    author_name VARCHAR(100),
+    author_email VARCHAR(100),
+    order_date DATE,
+    price DECIMAL(10, 2),
 }
 
 -- 2NF
+CREATE TABLE IF NOT EXISTS Orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_date DATE,
+);
+CREATE TABLE IF NOT EXISTS Customers (
+    customer_name VARCHAR(100),
+    customer_email VARCHAR(100)
+);
+CREATE TABLE IF NOT EXISTS Authors (
+    author_name VARCHAR(100),
+    author_email VARCHAR(100)
+);
+CREATE TABLE IF NOT EXISTS Books (
+    book_title VARCHAR(100),
+    book_type VARCHAR(100)
+);
+
+-- 3NF
 CREATE TABLE IF NOT EXISTS Customers (
     customer_id INT PRIMARY KEY AUTO_INCREMENT,
     customer_name VARCHAR(100),
