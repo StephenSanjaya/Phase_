@@ -22,8 +22,8 @@ func PrintLetters(wg *sync.WaitGroup, ch chan string) {
 
 func main() {
 
-	var ch = make(chan string)
-	defer close(ch)
+	var ch = make(chan string, 5)
+	// var ch = make(chan string)
 
 	var wg sync.WaitGroup
 
@@ -32,10 +32,13 @@ func main() {
 	go PrintNumbers(&wg, ch)
 
 	go func() {
-		for v := range ch {
-			fmt.Println(v)
-		}
+		wg.Wait()
+		close(ch)
 	}()
 
-	wg.Wait()
+	for v := range ch {
+		fmt.Println(v)
+		// time.Sleep(1 * time.Second)
+	}
+
 }
