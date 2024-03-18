@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"Phase1/week3/day4/go-connect/db"
+	"fmt"
 )
 
 type Test struct {
-	id	int
+	id   int
 	name string
 }
 
@@ -14,7 +14,7 @@ func main() {
 	database, err := db.ConnectDB()
 	if err != nil {
 		fmt.Println(err.Error())
-		return 
+		return
 	}
 
 	defer database.Close()
@@ -34,7 +34,6 @@ func main() {
 	}
 
 	fmt.Println("Success to insert data!")
-
 
 	rows, err := database.Query("SELECT * FROM test")
 	if err != nil {
