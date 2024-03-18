@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"sync"
 )
 
-func PrintNumbers() {
+func PrintNumbers(wg *sync.WaitGroup) {
+	defer wg.Done()
 	for i := 1; i <= 10; i++ {
 		fmt.Println(i)
 	}
 }
 
-func PrintLetters() {
+func PrintLetters(wg *sync.WaitGroup) {
+	defer wg.Done()
 	for i := 97; i <= 106; i++ {
 		fmt.Println(string(byte(i)))
 	}
@@ -19,8 +21,11 @@ func PrintLetters() {
 
 func main() {
 
-	go PrintLetters()
-	go PrintNumbers()
+	var wg sync.WaitGroup
 
-	time.Sleep(2 * time.Second)
+	wg.Add(2)
+	go PrintLetters(&wg)
+	go PrintNumbers(&wg)
+
+	wg.Wait()
 }
