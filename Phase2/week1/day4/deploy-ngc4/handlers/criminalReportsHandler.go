@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"Phase2/week1/day3/NGC-4/config"
-	"Phase2/week1/day3/NGC-4/models"
+	"Phase2/week1/day4/deploy-ngc4/config"
+	"Phase2/week1/day4/deploy-ngc4/models"
 	"encoding/json"
 	"net/http"
 

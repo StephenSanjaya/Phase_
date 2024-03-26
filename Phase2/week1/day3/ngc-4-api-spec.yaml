@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: NGC - 4
+  description: Deskripsi Contoh API
+  version: 1.0.0
+  contact:
+    name: stephen
+    email: stephen@gmail.com
+servers:
+  - url: http://localhost:3000
+    description: "production server"
+  - url: http://localhost:8081
+    description: "development server"
+
+components:
+  schemas:
+    successResponseMethodGet:
+      properties:
+        status:
+          type: number
+        message:
+          type: string
+        datas:
+          type: object
+          properties:
+            ID:
+              type: number
+            HeroID:
+              type: integer
+            VillainID:
+              type: integer
+            Description:
+              type: string
+            Date:
+              type: string
+              format: time.Time
+    response1:
+      properties:
+        message:
+          type: string
+        status:
+          type: integer
+    requestBody:
+      type: object
+      properties:
+        HeroID:
+          type: integer
+        VillainID:
+          type: integer
+        Description:
+          type: string
+        Date:
+          type: string
+          format: time.Time
+  parameters:
+    reportId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      description: The user ID
+
+paths:
+  /reports:
+    get:
+      summary: Get all criminal reports
+      tags:
+        - reports
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/successResponseMethodGet"
+        "500":
+          description: Internal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "Failed to query"
+                status: 500
+
+    post:
+      summary: Creates a criminal report
+      tags:
+        - reports
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestBody"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "success create new report"
+                status: 201
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "Invalid body input"
+                status: 400
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "Failed to query"
+                status: 500
+  /reports/{id}:
+    get:
+      summary: Get detail criminal report
+      tags:
+        - reports
+      parameters:
+        - $ref: "#/components/parameters/reportId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/successResponseMethodGet"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "Failed to query"
+                status: 500
+    put:
+      summary: Edit detail criminal report
+      tags:
+        - reports
+      parameters:
+        - $ref: "#/components/parameters/reportId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "success update report"
+                status: 200
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "Invalid body input"
+                status: 400
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "Failed to query"
+                status: 500
+    delete:
+      summary: Delete criminal report by id
+      tags:
+        - reports
+      parameters:
+        - $ref: "#/components/parameters/reportId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response1"
+              example:
+                message: "success delete report"
+                status: 200
