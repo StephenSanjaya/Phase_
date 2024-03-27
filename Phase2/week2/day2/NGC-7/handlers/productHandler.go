@@ -82,18 +82,11 @@ func GetProductById(c *gin.Context) {
 func InsertNewProduct(c *gin.Context) {
 	c.Writer.Header().Set("Content-Type", "application/json")
 
-	//validate if role superadmin or not
-	// v := ValidateRole(w, r)
-	// if v != nil {
-	// 	json.NewEncoder(w).Encode(v)
-	// 	return
-	// }
-
 	var p models.Product
 	if err := c.ShouldBindJSON(&p); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorMessage{
 			Status:  http.StatusBadRequest,
-			Message: "invalid body input",
+			Message: "invalid body input: " + err.Error(),
 		})
 		return
 	}
@@ -128,25 +121,18 @@ func InsertNewProduct(c *gin.Context) {
 func Updateproduct(c *gin.Context) {
 	c.Writer.Header().Set("Content-Type", "application/json")
 
-	//validate role
-	// v := ValidateRole(w, r)
-	// if v != nil {
-	// 	json.NewEncoder(w).Encode(v)
-	// 	return
-	// }
-
 	id := c.Param("id")
 
 	var p models.Product
 	if err := c.ShouldBindJSON(&p); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorMessage{
 			Status:  http.StatusBadRequest,
-			Message: "invalid body input",
+			Message: "invalid body input: " + err.Error(),
 		})
 		return
 	}
 
-	statement, err := config.Db.Prepare("UPDATE Products SET name = ?, description = ?, image_url = ?, price = ?, store_id WHERE product_id = ?")
+	statement, err := config.Db.Prepare("UPDATE Products SET name = ?, description = ?, image_url = ?, price = ?, store_id = ? WHERE product_id = ?")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrorMessage{
 			Status:  http.StatusInternalServerError,
@@ -176,13 +162,6 @@ func Updateproduct(c *gin.Context) {
 func DeleteProduct(c *gin.Context) {
 	c.Writer.Header().Set("Content-Type", "application/json")
 
-	// validate role
-	// v := ValidateRole(w, r)
-	// if v != nil {
-	// 	json.NewEncoder(w).Encode(v)
-	// 	return
-	// }
-
 	id := c.Param("id")
 
 	statement, err := config.Db.Prepare("DELETE FROM Products WHERE product_id = ?")
@@ -210,22 +189,4 @@ func DeleteProduct(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, success_msg)
-}
-
-func ValidateRole(w http.ResponseWriter, r *http.Request) interface{} {
-	c, err := r.Cookie("role")
-	if err != nil {
-		return models.ErrorMessage{
-			Status:  http.StatusUnauthorized,
-			Message: "unauthorized: , " + err.Error(),
-		}
-	}
-	if c.Value != "superadmin" {
-		return models.ErrorMessage{
-			Status:  http.StatusUnauthorized,
-			Message: "required superadmin role",
-		}
-	}
-
-	return nil
 }

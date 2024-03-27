@@ -17,22 +17,12 @@ func RegisterHandler(c *gin.Context) {
 
 	var store models.Store
 	if err := c.ShouldBindJSON(&store); err != nil {
-		c.JSON(http.StatusBadRequest, models.ErrorMessage{
+		c.AbortWithStatusJSON(http.StatusBadRequest, models.ErrorMessage{
 			Status:  http.StatusBadRequest,
-			Message: "invalid body input",
+			Message: "invalid body input: " + err.Error(),
 		})
 		return
 	}
-
-	// validasi request body
-	// err = helper.ValidateUser(store)
-	// if err != nil {
-	// 	json.NewEncoder(w).Encode(models.ErrorMessage{
-	// 		Status:  http.StatusBadRequest,
-	// 		Message: err.Error(),
-	// 	})
-	// 	return
-	// }
 
 	stmt, err := config.Db.Prepare("INSERT INTO Stores (email, password, store_name, store_type) VALUES (?,?,?,?)")
 	if err != nil {
@@ -71,7 +61,7 @@ func LoginHandler(c *gin.Context) {
 	if err := c.ShouldBindJSON(&userLogin); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorMessage{
 			Status:  http.StatusBadRequest,
-			Message: "invalid body input",
+			Message: "invalid body input: " + err.Error(),
 		})
 		return
 	}

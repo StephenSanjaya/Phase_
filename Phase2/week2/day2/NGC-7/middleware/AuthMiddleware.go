@@ -3,35 +3,37 @@ package middleware
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/julienschmidt/httprouter"
+	"github.com/gin-gonic/gin"
 )
 
-func AuthMiddleware(next httprouter.Handle) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-
-		tokenString := r.Header.Get("Authorization")
+func AuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenString := c.GetHeader("Authorization")
 
 		if tokenString == "" {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+			// http.Error(c.Writer, "Unauthorized", http.StatusUnauthorized)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, "Unauthorized")
 			return
 		}
 
-		secret_token := []byte("mysecretKey")
+		secret_token := []byte(os.Getenv("JWT"))
 		parsedToken, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, fmt.Errorf("algoritma tidak valid")
+				c.AbortWithStatusJSON(http.StatusUnauthorized, "invalid algorithm use")
+				return nil, fmt.Errorf("invalid algorithm use")
 			}
 			return secret_token, nil
 		})
 
 		if parsedToken == nil || !parsedToken.Valid {
 			fmt.Println("error while decode token", err)
-			http.Error(w, "invalid token", http.StatusUnauthorized)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, "invalid token")
 			return
 		}
 
-		next(w, r, ps)
+		c.Next()
 	}
 }

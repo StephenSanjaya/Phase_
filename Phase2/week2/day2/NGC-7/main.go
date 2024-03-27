@@ -3,6 +3,7 @@ package main
 import (
 	"Phase2/week2/day2/NGC-7/config"
 	"Phase2/week2/day2/NGC-7/handlers"
+	"Phase2/week2/day2/NGC-7/middleware"
 	"fmt"
 	"log"
 
@@ -39,6 +40,7 @@ func main() {
 	}
 
 	products := r.Group("/products")
+	products.Use(middleware.AuthMiddleware())
 	{
 		products.GET("/", handlers.GetAllProducts)
 		products.GET("/:id", handlers.GetProductById)
@@ -48,21 +50,5 @@ func main() {
 	}
 
 	r.Run(":8081")
-
-	// router := httprouter.New()
-	// router.POST("/register", handlers.Register)
-	// router.POST("/login", handlers.Login)
-
-	// router.GET("/recipes", middleware.AuthMiddleware(handlers.GetAllRecipes))
-	// router.GET("/recipes/:id", middleware.AuthMiddleware(handlers.GetRecipeById))
-	// router.POST("/recipes", middleware.AuthMiddleware(handlers.InsertNewRecipe))
-	// router.PUT("/recipes/:id", middleware.AuthMiddleware(handlers.UpdateRecipe))
-	// router.DELETE("/recipes/:id", middleware.AuthMiddleware(handlers.DeleteRecipe))
-
-	// err = http.ListenAndServe(":8081", router)
-	// if err != nil {
-	// 	fmt.Println("failed to listen to port 8081, " + err.Error())
-	// 	return
-	// }
 
 }
