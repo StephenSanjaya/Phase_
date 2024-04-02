@@ -11,6 +11,18 @@ import (
 	"gorm.io/gorm"
 )
 
+// Register godoc
+// @Summary Create user
+// @Description Register new user
+// @ID Create-user
+// @Param register body dto.User true "User to register"
+// @Accept  json
+// @Produce  json
+// @Success      201              {string}  string    "success register"
+// @Failure      400              {string}  string    "bad request"
+// @Failure      404              {string}  string    "not found"
+// @Failure      500              {string}  string    "internal server error"
+// @Router /register [post]
 func RegisterHandler(c echo.Context) error {
 	user := new(dto.User)
 
@@ -25,6 +37,18 @@ func RegisterHandler(c echo.Context) error {
 	return c.JSON(http.StatusCreated, "success register")
 }
 
+// Register godoc
+// @Summary Create user
+// @Description Register new user
+// @ID Login-user
+// @Param login body dto.Login true "User to login"
+// @Accept  json
+// @Produce  json
+// @Success      200              {string}  string    "success login"
+// @failure      400              {string}  string    "bad request"
+// @failure      404              {string}  string    "not found"
+// @failure      500              {string}  string    "internal server error"
+// @Router /login [post]
 func LoginHandler(c echo.Context) error {
 	var login dto.Login
 

@@ -10,6 +10,15 @@ import (
 	"gorm.io/gorm"
 )
 
+// Get all product godoc
+// @Summary get all product
+// @Description get all product
+// @ID Get-all-user
+// @Produce  json
+// @Success      200              {object}  dto.Product
+// @Failure      400              {string}  string    "bad request"
+// @Failure      500              {string}  string    "internal server error"
+// @Router /products [get]
 func GetAllProducts(c echo.Context) error {
 	products := new([]entity.Product)
 
@@ -24,6 +33,18 @@ func GetAllProducts(c echo.Context) error {
 	return c.JSON(http.StatusOK, products)
 }
 
+// Create new transaction godoc
+// @Summary create new transaction
+// @Description order product and write history to table transaction
+// @ID Create-transaction
+// @Param transaction body dto.Transaction true "Craete transaction"
+// @Accept  json
+// @Produce  json
+// @Success      201              {string}  string    "success create transaction"
+// @Failure      400              {string}  string    "bad request"
+// @Failure      404              {string}  string    "not found"
+// @Failure      500              {string}  string    "internal server error"
+// @Router /transactions [post]
 func CreateNewTransaction(c echo.Context) error {
 	trans := new(entity.Transaction)
 

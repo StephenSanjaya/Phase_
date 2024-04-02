@@ -17,3 +17,8 @@ type Product struct {
 	Stock     int     `json:"stock"`
 	Price     float64 `json:"price"`
 }
+
+type Transaction struct {
+	ProductID int `json:"product_id"`
+	Quantity  int `json:"quantity"`
+}
