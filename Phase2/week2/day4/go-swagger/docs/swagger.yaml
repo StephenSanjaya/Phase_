@@ -1,0 +1,108 @@
+definitions:
+  utils.Item:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+info:
+  contact: {}
+paths:
+  /items/:
+    get:
+      consumes:
+      - application/json
+      description: Get all item by ID
+      operationId: Get-all-item
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/utils.Item'
+            type: array
+      summary: Get all item by ID
+    post:
+      consumes:
+      - application/json
+      description: Create new items
+      operationId: Create-items
+      parameters:
+      - description: Item to create
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/utils.Item'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/utils.Item'
+      summary: Create items
+  /items/{id}:
+    delete:
+      description: Delete an item by ID
+      operationId: Delete-item
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      summary: Delete an item by ID
+    get:
+      consumes:
+      - application/json
+      description: Get an item by ID
+      operationId: Get-item-by-id
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Item'
+      summary: Get an item by ID
+    put:
+      consumes:
+      - application/json
+      description: Update an existing item
+      operationId: Update-item
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Item
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/utils.Item'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Item'
+      summary: Update an existing item
+swagger: "2.0"
