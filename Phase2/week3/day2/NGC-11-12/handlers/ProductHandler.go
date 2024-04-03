@@ -52,8 +52,10 @@ func CreateNewTransaction(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
 
-	// set user id manually
-	trans.UserID = 1
+	if c.Get("user_id") == nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "errrororororor")
+	}
+	trans.UserID = int(c.Get("user_id").(float64))
 
 	err := config.DB.Transaction(func(tx *gorm.DB) error {
 		type tempTrans struct {

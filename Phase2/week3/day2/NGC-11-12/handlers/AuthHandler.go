@@ -5,8 +5,10 @@ import (
 	"Phase2/week3/day2/NGC-11-12/dto"
 	"Phase2/week3/day2/NGC-11-12/entity"
 	"errors"
+	"fmt"
 	"net/http"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
@@ -65,5 +67,21 @@ func LoginHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, res.Error)
 	}
 
-	return c.JSON(http.StatusOK, "success login")
+	claims := jwt.MapClaims{
+		"user_id":  user.ID,
+		"username": user.Username,
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	tokenString, err := token.SignedString([]byte("secretkey"))
+	if err != nil {
+		cusError := fmt.Sprintf("failed create token: %s", err.Error())
+		return echo.NewHTTPError(http.StatusBadRequest, cusError)
+	}
+
+	return c.JSON(http.StatusOK, map[string]string{
+		"message": "success login",
+		"jwt":     tokenString,
+	})
 }

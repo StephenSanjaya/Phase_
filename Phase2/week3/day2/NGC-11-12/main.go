@@ -32,9 +32,9 @@ func main() {
 	users.POST("/register", handlers.RegisterHandler)
 	users.POST("/login", handlers.LoginHandler)
 
-	e.GET("/products", handlers.GetAllProducts)
+	e.GET("/products", middleware.AuthMiddleware(handlers.GetAllProducts))
 
-	e.POST("/transactions", handlers.CreateNewTransaction)
+	e.POST("/transactions", middleware.AuthMiddleware(handlers.CreateNewTransaction))
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
