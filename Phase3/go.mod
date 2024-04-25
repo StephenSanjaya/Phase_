@@ -6,7 +6,9 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/joho/godotenv v1.5.1
 	github.com/kelseyhightower/envconfig v1.4.0
+	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.12.0
+	github.com/sirupsen/logrus v1.9.3
 	go.mongodb.org/mongo-driver v1.15.0
 	gorm.io/driver/postgres v1.5.7
 	gorm.io/gorm v1.25.9
