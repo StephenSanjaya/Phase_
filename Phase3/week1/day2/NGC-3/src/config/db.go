@@ -2,11 +2,13 @@ package config
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"sync"
 
 	"github.com/joho/godotenv"
+	"github.com/robfig/cron"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -35,6 +37,17 @@ func GetConnection() *Database {
 			log.Fatal("failed to connect mongo db")
 			return
 		}
+
+		c := cron.New()
+		c.AddFunc("*/1 * * * *", func() {
+			err = client.Ping(context.Background(), nil)
+			if err != nil {
+				log.Fatal("failed to connect mongo db")
+				return
+			}
+			fmt.Println("MongoDB server is healthy.")
+		})
+		c.Start()
 
 		collection := client.Database(dbName).Collection(dbCollection)
 		instance = &Database{Conn: collection}
