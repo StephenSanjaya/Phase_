@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package order;
+option go_package = "internal/order";
+
+message Order {
+    string orderId = 1;
+    string orderDate = 2;
+    int64 subTotal = 3;
+    string orderStatus = 4;
+    repeated ProductItem items = 5;
+}
+
+message ProductItem {
+    string productName = 1;
+    string qty = 2;
+    string price = 3;
+}
+
+// $ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+// $ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+// export PATH="$PATH:$(go env GOPATH)/bin"
+
+
+// without repeated
+// {
+//     orderId : 1,
+//     orderDate : "02-02-2022",
+//     subTotal : 100000,
+//     orderStatus : "paid",
+//     Items : {
+//         productName : "baju",
+//         qty : 2,
+//         price : 50000
+//     }
+// }
+
+// with repeated
+// {
+//     orderId : 1,
+//     orderDate : "02-02-2022",
+//     subTotal : 100000,
+//     orderStatus : "paid",
+//     Items : [
+//                  {
+//                   productName : "baju",
+//                   qty : 1,
+//                   price : 50000
+//                  },
+//                  {
+//                   productName : "celana",
+//                   qty : 1,
+//                   price : 50000
+//                  },
+//             ]
+// }
+
+
+// protoc --go_out=. pb/order.proto    
+
+
