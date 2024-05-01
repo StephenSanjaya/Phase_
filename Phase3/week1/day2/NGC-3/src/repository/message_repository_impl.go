@@ -16,7 +16,7 @@ type MessageRepositoryImpl struct {
 	db *mongo.Collection
 }
 
-func NewMessageRepository(db *mongo.Collection) *MessageRepositoryImpl {
+func NewMessageRepository(db *mongo.Collection) MessageRepositoryI {
 	return &MessageRepositoryImpl{db: db}
 }
 

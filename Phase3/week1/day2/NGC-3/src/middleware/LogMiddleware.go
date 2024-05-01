@@ -6,20 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
 )
-
-// type ErrorContract struct {
-// 	Code    int    `json:"-"`
-// 	Message string `json:"message"`
-// 	Detail  string `json:"detail"`
-// }
-
-// func (e ErrorContract) Error() string {
-// 	return fmt.Sprintf("Error %d: %s", e.Code, e.Message)
-// }
 
 func MakeLogEntry(c echo.Context) *log.Entry {
 	if c == nil {
@@ -47,7 +36,7 @@ func MiddlewareLogging(next echo.HandlerFunc) echo.HandlerFunc {
 func ErrorHandler(err error, c echo.Context) {
 	report, ok := err.(*utils.HTTPError)
 	if ok {
-		c.JSON(report.Code, gin.H{
+		c.JSON(report.Code, echo.Map{
 			"message": report.Message,
 			"detail":  report.Detail.Error(),
 		})
