@@ -1,0 +1,24 @@
+syntax = "proto3";
+package user;
+option go_package = "internal/user";
+
+import "google/protobuf/empty.proto";
+
+
+service UserService {
+  rpc CreateUser(User) returns (google.protobuf.Empty);
+  rpc GetUsers(google.protobuf.Empty) returns (ResponseUser);
+}
+
+message User {
+  uint32 Id = 1;
+  string Name = 2;
+  string Age = 3;
+  string Address = 4;
+}
+
+message ResponseUser {
+  uint32 Id = 1;
+  string Created_at = 2;
+}
+

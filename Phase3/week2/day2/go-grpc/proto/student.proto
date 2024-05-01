@@ -1,0 +1,16 @@
+syntax = "proto3";
+package student;
+option go_package = "go-grpc/pb";
+
+service StudentService {
+    rpc AddStudent(Request) returns (Response);
+}
+
+message Request {
+    string name = 1;
+    string email = 2;
+}
+
+message Response {
+    string message = 1;
+}
