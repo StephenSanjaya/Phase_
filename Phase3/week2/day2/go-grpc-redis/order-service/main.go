@@ -70,7 +70,7 @@ func (s *Handler) GetOrder(ctx context.Context, in *pb.OrderIdRequest) (*pb.Orde
 		}
 
 		// Store the fetched data in Redis, serialize with JSON
-		orderData, _ := json.Marshal(order)
+		orderData, _ := json.Marshal(&order)
 		s.rdb.Set(ctx, in.Id, orderData, 0) // Using default expiration
 		return &order, nil
 	} else if err != nil {
